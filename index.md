@@ -92,7 +92,7 @@ fn = lambda a: a + 1
 
 #### Javascript
 
-```
+```javascript
 function fn(a, b, c) {
   return a + b + c
 }
@@ -113,7 +113,7 @@ fn(1, 2, 3) == fn(*[1, 2, 3])
 
 #### Javascript
 
-```
+```javascript
 function fn(...args) { ... }
 ```
 
@@ -796,7 +796,7 @@ for (const [k, v] of iteraterify(me)) {
 * Create a function, `add(..)` that passes these tests.
 
 
-```
+```javascript
 /* -- binary -- */
 add(1, 2) == 3
 // => true
