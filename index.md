@@ -627,20 +627,10 @@ ErrorMonad.prototype.map = function(fn) {
     return new ErrorMonad(this.value)
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 ```
 
-```
+#### Promises
+```javascript
 // Async simulation
 const doSomething = () => new Promise((resolve, reject) => {
   const payload = {
