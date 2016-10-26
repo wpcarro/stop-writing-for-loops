@@ -573,6 +573,73 @@ const pipe = (...fns) => (...args) =>
 * How do you "lift" the value out?
 * 2 options...
 
+#### Identity Monad
+
+```
+function IMonad(value) {
+  this.value = value
+}
+
+IMonad.prototype.pprint = function() {
+  console.log(this.value)
+}
+
+IMonad.prototype.map = function(fn) {
+  return new IMonad(fn(this.value))
+}
+```
+
+
+#### Maybe Monad
+```
+function MaybeMonad(value) {
+  this.value = value
+}
+
+MaybeMonad.prototype.pprint = function() {
+  console.log(this.value)
+}
+
+MaybeMonad.prototype.map = function(fn) {
+  if (this.value) {
+    return new MaybeMonad(fn(this.value))
+  }
+  return this
+}
+```
+
+#### Error Monad
+```
+function ErrorMonad(value) {
+  this.value = value
+}
+
+ErrorMonad.prototype.pprint = function() {
+  console.log(this.value)
+}
+
+ErrorMonad.prototype.map = function(fn) {
+  try {
+    return new ErrorMonad(fn(this.value))
+  }
+  catch (err) {
+    console.error(err)
+    return new ErrorMonad(this.value)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+```
+
 ```
 // Async simulation
 const doSomething = () => new Promise((resolve, reject) => {
