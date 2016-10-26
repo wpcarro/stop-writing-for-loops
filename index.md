@@ -70,7 +70,7 @@ REPL: [http://jsbin.com/nelipapahi/edit?html,js,console](http://jsbin.com/nelipa
 
 #### Javascript
 
-```
+```javascript
 function fn(a) {
   return a + 1
 }
@@ -129,7 +129,7 @@ def fn(*args):
 
 #### Javascript
 
-```
+```javascript
 const [a, b, c] = [1, 2, 3]
 // a => 1
 // b => 2
@@ -163,7 +163,7 @@ const { name, age } = { name: 'William', age: 24 }
 
 ## What can FP in JS look like?
 
-```
+```javascript
 const url = 'https://api.icndb.com/jokes/random';
 
 compose(
@@ -244,7 +244,7 @@ compose(
 * Teaching an array how to expose its values
 
 ### ex. 1
-```
+```javascript
 var sum = 0;
 
 for (var i = 0; i < array.length; i++) {
@@ -252,12 +252,12 @@ for (var i = 0; i < array.length; i++) {
 }
 ```
 
-```
+```javascript
 array.reduce(add, 0)
 ```
 
 ### ex. 2
-```
+```javascript
 var newArray = [];
 
 for (var i = 0; i < array.length; i++) {
@@ -269,18 +269,18 @@ for (var i = 0; i < array.length; i++) {
 }
 ```
 
-```
+```javascript
 array.filter(isEven)
 ```
 
 ### ex. 3
-```
+```javascript
 for (var i = 0; i < array.length; i++) {
   array[i] = array[i] * 2;
 }
 ```
 
-```
+```javascript
 array.map(mult(2))
 ```
 
@@ -309,15 +309,15 @@ array.map(mult(2))
 * Inputs: array and predicate
 * Outputs: new array
 
-```
+```javascript
 filter(predicate, array)
 ```
 
-```
+```javascript
 const predicate = (element, index, array) => { ... }
 ```
 
-```
+```javascript
 [1, null, 3, 4, null].filter((element, index, array) => element !== null)
 // => [1, 3, 4]
 ```
@@ -328,28 +328,28 @@ const predicate = (element, index, array) => { ... }
 * Inputs: array and iterator
 * Outputs: new array (same no. of values as original)
 
-```
+```javascript
 map(iterator, array)
 ```
 
-```
+```javascript
 const iterator = (element, index, array) => { ... }
 ```
 
-```
+```javascript
 [1, 2, 3, 4].map((element, index, array) => element * 2)
 // => [2, 4, 6, 8]
 ```
 
 ### NOTE: array (et al) comprehensions
 
-```
+```python
 >>> xs = [1, None, 3, 4]
 >>> [x * 2 for x in xs if x != None]
 [2, 6, 8]
 ```
 
-```
+```python
 >>> d = {'a': 1, 'b': 2, 'c': 3, 'd': None}
 >>> dict((k, v * 2) for k, v in d.iteritems() if v != None)
 {'a': 2, 'b': 4, 'c': 6}
@@ -363,36 +363,36 @@ const iterator = (element, index, array) => { ... }
 * Inputs: array and reducer
 * Outputs: new any
 
-```
+```javascript
 reduce(reducer, initialValue, array)
 ```
 
 
-```
+```javascript
 const reducer = (accumulator, element, index, array) => { ... }
 ```
 
 
 ##### Array -> Object
 
-```
+```javascript
 const rToO = array => array.reduce((object, el, i) => 
   Object.assign(object, {[i]: el}), {})
 ```
 
-```
+```javascript
 rToO(['red', 'green', 'blue'])
 // => {0: 'red', 1: 'green', 2: 'blue'}
 ```
 
 ##### Object -> Array
 
-```
+```javascript
 const oToR = object => Object.keys(object).reduce(
   (array, k) => array.concat(object[k]), []);
 ```
 
-```
+```javascript
 oToR({a: 2, b: 4, c: 6, d: 8});
 // => [2, 4, 6, 8]
 ```
@@ -418,7 +418,7 @@ oToR({a: 2, b: 4, c: 6, d: 8});
 
 #### memoize(..) and lru_cache(..)
 
-```
+```javascript
 fib(1000)
 
 // versus
@@ -428,7 +428,7 @@ fib(10000)
 
 #### throttle(..) and debounce(..)
 
-```
+```javascript
 document.addEventListener('scroll', throttle(scrollHandler))
 ```
 
@@ -440,11 +440,11 @@ document.addEventListener('scroll', throttle(scrollHandler))
 * function arity
 * allows for great composability
 
-```
+```javascript
 const add = a => b => c => a + b + c
 ```
 
-```
+```javascript
 add(1)(2)(3)
 // => 6
 
@@ -455,7 +455,7 @@ add(1, 2, 3)
 
 #### Implementation
 
-```
+```javascript
 const curry = fn => {
   const parmsNeeded = fn.length
   let parmsReceived = []
@@ -476,7 +476,7 @@ const curry = fn => {
 > “There are only two hard parts of Computer Science: cache invalidation and naming things.” — Martin Fowler
 
 
-```
+```javascript
 compose(
   x => x + 5
   x => x * 2,
@@ -487,7 +487,7 @@ compose(
 
 ### Point-free?
 
-```
+```javascript
 compose(
   add(5)   // <- curried
   mult(2), // <- curried
@@ -498,14 +498,14 @@ compose(
 
 ### Bash
 
-```
+```bash
 $ find . -type f -name '*.js' | xargs cat | wc -l
 ```
 
 
 ### With higher-order functions
 
-```
+```javascript
 const fn = compose(
   reduce(add, 0),
   map(divide(_, 2)),
@@ -518,11 +518,11 @@ fn([11, 40, 21, 2, 14, 16]);
 
 ### Debugging
 
-```
+```javascript
 const clog = (...args) => console.log(...args)
 ```
 
-```
+```javascript
 const fn = compose(
   clog,              // 36
   reduce(add, 0),
@@ -536,7 +536,7 @@ const fn = compose(
 
 ### Implementation
 
-```
+```javascript
 const pipe = (...fns) => (...args) =>
   fns.slice(1).reduce(
     (result, fn) => fn(result), fns[0](...args))
@@ -575,7 +575,7 @@ const pipe = (...fns) => (...args) =>
 
 #### Identity Monad
 
-```
+```javascript
 function IMonad(value) {
   this.value = value
 }
@@ -591,7 +591,7 @@ IMonad.prototype.map = function(fn) {
 
 
 #### Maybe Monad
-```
+```javascript
 function MaybeMonad(value) {
   this.value = value
 }
@@ -609,7 +609,7 @@ MaybeMonad.prototype.map = function(fn) {
 ```
 
 #### Error Monad
-```
+```javascript
 function ErrorMonad(value) {
   this.value = value
 }
@@ -641,7 +641,7 @@ const doSomething = () => new Promise((resolve, reject) => {
 })
 ```
 
-```
+```javascript
 // Option 1
 
 doSomething()
@@ -696,7 +696,7 @@ async function fn() {
 
 ## Making an Object a functor in JS
 
-```
+```javascript
 // Non-mutative (good)
 const mappify = objLiteral => {
   const newObjLiteral = Object.assign({}, objLiteral)
@@ -719,8 +719,7 @@ const mappify = objLiteral => {
 
 ```
 
-```
-
+```javascript
 // Non-mutative (good)
 const iteraterify = objLiteral => {
   const proto = Object.assign({}, Object.prototype)
@@ -741,13 +740,13 @@ const iteraterify = objLiteral => {
 
 ### Arrays
 
-```
+```javascript
 for (const x of [1, 2, 3]) { ... }
 ```
 
 ### Generators
 
-```
+```javascript
 function* createSequenceGenerator() {
   yield 1
   yield 2
@@ -765,7 +764,7 @@ for (const x of seqGen) { ... }
 Natively: Nope.
 ```
 
-```
+```javascript
 const me = {
   name: 'William',
   age: 24,
